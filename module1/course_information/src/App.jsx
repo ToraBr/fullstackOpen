@@ -14,22 +14,21 @@ const Part = (props) => {
     </p>
   )
 }
-const Content = (props) => {
+const Content = ({parts}) => {
   return (
     <div>
-     
-        <Part name = {props.name1} exercises = {props.exercises1}/>
-        <Part name = {props.name2} exercises = {props.exercises2}/>
-        <Part name = {props.name3} exercises = {props.exercises3}/>
-      
+    {parts.map((part) => ( <Part name ={part.name} exercises ={part.exercises}/>))}
     </div>
   )
 }
 
-const Count = (props) => {
+const Count = ({parts}) => {
+  let sum = 0
+  parts.forEach(part=> {sum += part.exercises})
   return (
     <div>
-      <p> Number of excercises: {props.amount1+props.amount2+props.amount3}
+      
+      <p> Number of excercises: {sum}
       </p>
     </div>
   )
@@ -37,24 +36,24 @@ const Count = (props) => {
 
   const App = () => {
   const course = 'Half Stack application development'
-  const part1 = {
+  const parts =[ {
     name: 'Fundamentals of React',
     exercises: 10
-  }
-  const part2 = {
+  },
+   {
     name: 'Using props to pass data',
     exercises: 7
-  }
-  const part3 = {
+  },
+  {
     name: 'State of a component',
     exercises: 14
   }
-
+  ]
   return (
     <div>
       <Header course = {course}/>
-      <Content name1 = {part1.name} exercises1={part1.exercises} name2 = {part2.name} exercises2={part2.exercises} name3 = {part3.name} exercises3={part3.exercises}/>
-      <Count amount1 = {part1.exercises} amount2={part2.exercises} amount3={part3.exercises}/>
+      <Content parts = {parts} />
+      <Count parts = {parts} />
     
     </div>
   )
